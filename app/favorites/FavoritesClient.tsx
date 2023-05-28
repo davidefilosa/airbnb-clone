@@ -1,25 +1,23 @@
 "use client";
 
-import { SafeListing, SafeReservation, SafeUser } from "../types";
-import ListingCard from "../components/listings/ListingCard";
-import Container from "../components/Container";
-import Heading from "../components/Heading";
-import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
-import axios from "axios";
-import toast from "react-hot-toast";
+import { SafeListing, SafeUser } from "@/app/types";
+
+import Heading from "@/app/components/Heading";
+import Container from "@/app/components/Container";
+import ListingCard from "@/app/components/listings/ListingCard";
+
 interface FavoritesClientProps {
-  favorites: SafeListing[];
+  listings: SafeListing[];
   currentUser?: SafeUser | null;
 }
 
 const FavoritesClient: React.FC<FavoritesClientProps> = ({
-  favorites,
+  listings,
   currentUser,
 }) => {
   return (
     <Container>
-      <Heading title="Favorites" subtitle="See the place you liked" />
+      <Heading title="Favorites" subtitle="List of places you favorited!" />
       <div
         className="
           mt-10
@@ -33,11 +31,11 @@ const FavoritesClient: React.FC<FavoritesClientProps> = ({
           gap-8
         "
       >
-        {favorites.map((favorite: any) => (
+        {listings.map((listing: any) => (
           <ListingCard
-            key={favorite.id}
-            data={favorite}
             currentUser={currentUser}
+            key={listing.id}
+            data={listing}
           />
         ))}
       </div>

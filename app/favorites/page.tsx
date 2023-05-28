@@ -1,36 +1,31 @@
-import EmptyState from "../components/EmptyState";
-import ClientOnly from "../components/ClientOnly";
-import getCurrenUser from "../actions/getCurrentUser";
-import FavoritesClient from "./FavoritesClient";
+import EmptyState from "@/app/components/EmptyState";
+import ClientOnly from "@/app/components/ClientOnly";
+
+import getCurrentUser from "@/app/actions/getCurrentUser";
 import getFavorites from "../actions/getFavorites";
 
-const FavoritessPage = async () => {
-  const currentUser = await getCurrenUser();
+import FavoritesClient from "./FavoritesClient";
 
-  if (!currentUser) {
-    return (
-      <ClientOnly>
-        <EmptyState title="Unauthorized" subtitle="Please login" />
-      </ClientOnly>
-    );
-  }
+const ListingPage = async () => {
+  const listings = await getFavorites();
+  const currentUser = await getCurrentUser();
 
-  const favorites = await getFavorites();
-  if (favorites.length === 0) {
+  if (listings.length === 0) {
     return (
       <ClientOnly>
         <EmptyState
-          title="There are no favorites found"
-          subtitle="Looks like you have favorite any place yet"
+          title="No favorites found"
+          subtitle="Looks like you have no favorite listings."
         />
       </ClientOnly>
     );
   }
+
   return (
     <ClientOnly>
-      <FavoritesClient favorites={favorites} currentUser={currentUser} />
+      <FavoritesClient listings={listings} currentUser={currentUser} />
     </ClientOnly>
   );
 };
 
-export default FavoritessPage;
+export default ListingPage;
