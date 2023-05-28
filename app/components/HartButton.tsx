@@ -6,7 +6,7 @@ import { SafeUser } from "../types";
 
 interface HartButtonProps {
   listingId: string;
-  currentUser?: SafeUser;
+  currentUser?: SafeUser | null;
 }
 const HartButton: React.FC<HartButtonProps> = ({ listingId, currentUser }) => {
   const { hasFavorite, toggleFavorite } = useFavorite({
