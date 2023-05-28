@@ -1,6 +1,11 @@
 "use client";
 
-import { SafeFavorites, SafeReservation } from "../types";
+import {
+  SafeFavorites,
+  SafeListing,
+  SafeReservation,
+  SafeUser,
+} from "../types";
 import ListingCard from "../components/listings/ListingCard";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
@@ -8,12 +13,12 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-interface TripsClientProps {
-  favorites: SafeReservation[];
-  currentUser?: SafeFavorites | null;
+interface FavoritesClientProps {
+  favorites: SafeListing[];
+  currentUser?: SafeUser | null;
 }
 
-const ReservationClient: React.FC<TripsClientProps> = ({
+const FavoritesClient: React.FC<FavoritesClientProps> = ({
   favorites,
   currentUser,
 }) => {
@@ -33,7 +38,7 @@ const ReservationClient: React.FC<TripsClientProps> = ({
           gap-8
         "
       >
-        {favorites.map((favorite) => (
+        {favorites.map((favorite: any) => (
           <ListingCard
             key={favorite.id}
             data={favorite}
@@ -45,4 +50,4 @@ const ReservationClient: React.FC<TripsClientProps> = ({
   );
 };
 
-export default ReservationClient;
+export default FavoritesClient;
