@@ -18,15 +18,19 @@ export async function POST(request: Request) {
     }
   });
 
-  const listing = await prisma.reservation.create({
+  const listingAndReservation = await prisma.listing.update({
+    where: { id: listingId },
     data: {
-      totalPrice,
-      startDate,
-      endDate,
-      userId: currentUser.id,
-      listingId,
+      reservations: {
+        create: {
+          userId: currentUser.id,
+          startDate,
+          endDate,
+          totalPrice,
+        },
+      },
     },
   });
 
-  return NextResponse.json(listing);
+  return NextResponse.json(listingAndReservation);
 }
