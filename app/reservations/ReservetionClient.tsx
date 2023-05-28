@@ -1,6 +1,6 @@
 "use client";
 
-import { SafeListing, SafeReservation } from "../types";
+import { SafeListing, SafeReservation, SafeUser } from "../types";
 import ListingCard from "../components/listings/ListingCard";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
@@ -10,7 +10,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 interface TripsClientProps {
   reservations: SafeReservation[];
-  currentUser?: SafeListing | null;
+  currentUser?: SafeUser | null;
 }
 
 const ReservationClient: React.FC<TripsClientProps> = ({
