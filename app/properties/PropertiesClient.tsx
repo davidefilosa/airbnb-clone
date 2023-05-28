@@ -35,7 +35,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
   );
   return (
     <Container>
-      <Heading title="Your Place" subtitle="Propertiesyou have listed" />
+      <Heading title="Your Place" subtitle="Properties you have listed" />
       <div
         className="
           mt-10
