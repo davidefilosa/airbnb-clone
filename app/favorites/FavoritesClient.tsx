@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  SafeFavorites,
-  SafeListing,
-  SafeReservation,
-  SafeUser,
-} from "../types";
+import { SafeListing, SafeReservation, SafeUser } from "../types";
 import ListingCard from "../components/listings/ListingCard";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
