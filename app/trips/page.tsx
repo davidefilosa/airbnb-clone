@@ -2,9 +2,8 @@
 import EmptyState from "@/app/components/EmptyState";
 import ClientOnly from "@/app/components/ClientOnly";
 
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import getReservations from "@/app/actions/getReservation";
-
+import getCurrentUser from "../actions/getCurrentUser";
+import getReservations from "../actions/getReservation
 import TripsClient from "./TripsClient";
 
 const TripsPage = async () => {
