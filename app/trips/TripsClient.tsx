@@ -1,45 +1,51 @@
-"use client";
+'use client';
 
-import { SafeListing, SafeReservation, SafeUser } from "../types";
-import ListingCard from "../components/listings/ListingCard";
-import Container from "../components/Container";
-import Heading from "../components/Heading";
-import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { SafeReservation, SafeUser } from "@/app/types";
+
+import Heading from "@/app/components/Heading";
+import Container from "@/app/components/Container";
+import ListingCard from "@/app/components/listings/ListingCard";
+
 interface TripsClientProps {
-  reservations: SafeReservation[];
-  currentUser?: SafeUser | null;
+  reservations: SafeReservation[],
+  currentUser?: SafeUser | null,
 }
 
 const TripsClient: React.FC<TripsClientProps> = ({
   reservations,
-  currentUser,
+  currentUser
 }) => {
   const router = useRouter();
-  const [deletingId, setDeletingId] = useState("");
-  const onCancel = useCallback(
-    (id: string) => {
-      setDeletingId(id);
-      axios
-        .delete(`/api/reservations/${id}`)
-        .then(() => {
-          toast.success("Reservation cancelled");
-          router.refresh();
-        })
-        .catch((error) => toast.error("There was a problem. Try again"))
-        .finally(() => setDeletingId(""));
-    },
-    [router]
-  );
+  const [deletingId, setDeletingId] = useState('');
+
+  const onCancel = useCallback((id: string) => {
+    setDeletingId(id);
+
+    axios.delete(`/api/reservations/${id}`)
+    .then(() => {
+      toast.success('Reservation cancelled');
+      router.refresh();
+    })
+    .catch((error) => {
+      toast.error(error?.response?.data?.error)
+    })
+    .finally(() => {
+      setDeletingId('');
+    })
+  }, [router]);
+
   return (
     <Container>
       <Heading
         title="Trips"
-        subtitle="Where you have been and where you are going"
+        subtitle="Where you've been and where you're going"
       />
-      <div
+      <div 
         className="
           mt-10
           grid 
@@ -52,7 +58,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
           gap-8
         "
       >
-        {reservations.map((reservation) => (
+        {reservations.map((reservation: any) => (
           <ListingCard
             key={reservation.id}
             data={reservation.listing}
@@ -66,7 +72,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
         ))}
       </div>
     </Container>
-  );
-};
-
+   );
+}
+ 
 export default TripsClient;
